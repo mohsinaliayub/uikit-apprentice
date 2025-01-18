@@ -14,6 +14,10 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    @IBAction func sliderMoved(_ slider: UISlider) {
+        print("The value of the slider is now: \(slider.value)")
+    }
+    
     @IBAction func showAlert() {
         let alert = UIAlertController(title: "Hello, World",
                                       message: "This is my first app!",
