@@ -25,9 +25,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        currentValue = lroundf(slider.value)
-        targerValue = Int.random(in: 1...100) // set a random target value between 1 and 100
+        // The game just started. Setup a first round.
+        startNewRound()
     }
     
     @IBAction func sliderMoved(_ slider: UISlider) {
@@ -45,6 +44,21 @@ class ViewController: UIViewController {
         alert.addAction(action)
         
         present(alert, animated: true)
+        startNewRound()
+    }
+    
+    /// Sets up a new round for the player.
+    ///
+    /// Updates the target value with a random Int between slider's minimum and maximum value,
+    /// plus sets the slider's current value to be halfway in between its minimum and maximum value.
+    func startNewRound() {
+        // Set a new random target value between 1 and 100,
+        // slider's min and max values, respectively.
+        targerValue = Int.random(in: 1...100)
+        // Set the current value to be halfway between slider's min & max values.
+        currentValue = 50
+        // Update the slider to halfway position.
+        slider.value = Float(currentValue)
     }
 }
 
