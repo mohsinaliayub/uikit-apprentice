@@ -62,6 +62,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // The game just started. Setup a first round.
         startNewGame()
+        // Customize the appearance of the main slider.
+        customizeSlider()
     }
     
     @IBAction func sliderMoved(_ slider: UISlider) {
@@ -151,6 +153,32 @@ class ViewController: UIViewController {
         }
         
         return points
+    }
+    
+    
+    // MARK: - UI Customization
+    /// Customize the appearance of game slider.
+    ///
+    /// The slider is customized by:
+    /// - setting a custom image for slider thumb in both normal and highlighted state
+    /// - setting a custom image for the track to the left of the thumb in the slider
+    /// - setting a custom image for the track to the right of the thumb in the slider.
+    func customizeSlider() {
+        let thumbImageNormal = UIImage(named: "SliderThumb-Normal")!
+        slider.setThumbImage(thumbImageNormal, for: .normal)
+        
+        let thumbImageHighlighted = UIImage(named: "SliderThumb-Highlighted")!
+        slider.setThumbImage(thumbImageHighlighted, for: .normal)
+        
+        let insets = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
+        
+        let trackLeftImage = UIImage(named: "SliderTrackLeft")!
+        let trackLeftResizable = trackLeftImage.resizableImage(withCapInsets: insets)
+        slider.setMinimumTrackImage(trackLeftResizable, for: .normal)
+        
+        let trackRightImage = UIImage(named: "SliderTrackRight")!
+        let trackRightResizable = trackRightImage.resizableImage(withCapInsets: insets)
+        slider.setMaximumTrackImage(trackRightResizable, for: .normal)
     }
 }
 
