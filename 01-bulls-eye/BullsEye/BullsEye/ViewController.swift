@@ -38,7 +38,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // The game just started. Setup a first round.
-        startNewRound()
+        startNewGame()
     }
     
     @IBAction func sliderMoved(_ slider: UISlider) {
@@ -66,6 +66,15 @@ class ViewController: UIViewController {
         alert.addAction(action)
         
         present(alert, animated: true)
+    }
+    
+    /// Sets up a fresh game for the player.
+    ///
+    /// It resets the score, round and target values for the game.
+    @IBAction func startNewGame() {
+        score = 0
+        round = 0
+        startNewRound()
     }
     
     /// Sets up a new round for the player.
