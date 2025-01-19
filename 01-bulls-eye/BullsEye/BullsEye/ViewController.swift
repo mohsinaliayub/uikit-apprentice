@@ -51,8 +51,7 @@ class ViewController: UIViewController {
         // player's score.
         let difference = abs(targetValue - currentValue)
         // Calculate points for a round.
-        let points = 100 - difference
-        
+        let points = points(for: difference)
         score += points
         
         let title = alertTitle(for: difference)
@@ -115,6 +114,24 @@ class ViewController: UIViewController {
         }
         
         return title
+    }
+    
+    /// Calculates the total points for a difference between target and current value.
+    /// - Parameter difference: The absolute difference between target and current value.
+    /// - Returns: A score based on player's effort, plus any bonus score.
+    ///
+    /// The player is awarded additional bonus points on how good they did in matching the target value:
+    /// - The player is awarded 100 bonus points if difference is 0.
+    /// - The player is awarded 50 bonus points if difference is only 1.
+    func points(for difference: Int) -> Int {
+        var points = 100 - difference
+        if difference == 0 {
+            points += 100
+        } else if difference == 1 {
+            points += 50
+        }
+        
+        return points
     }
 }
 
