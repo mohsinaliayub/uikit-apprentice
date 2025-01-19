@@ -55,9 +55,10 @@ class ViewController: UIViewController {
         
         score += points
         
+        let title = alertTitle(for: difference)
         let message = "You scored \(points) points"
         
-        let alert = UIAlertController(title: "Hello, World",
+        let alert = UIAlertController(title: title,
                                       message: message,
                                       preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default)
@@ -94,6 +95,26 @@ class ViewController: UIViewController {
         scoreLabel.text = String(score)
         // Display the current round.
         roundLabel.text = String(round)
+    }
+    
+    // MARK: - Helper(s)
+    
+    /// Calculates the alert dialog title for point difference between target and current value.
+    /// - Parameter difference: The absolute difference between target and current value.
+    /// - Returns: A string that depicts how close you did in matching the target value.
+    func alertTitle(for difference: Int) -> String {
+        let title: String
+        if difference == 0 {
+            title = "Perfect!"
+        } else if difference < 5 {
+            title = "You almost had it!"
+        } else if difference < 10 {
+            title = "Pretty good!"
+        } else {
+            title = "Not even close..."
+        }
+        
+        return title
     }
 }
 
