@@ -15,6 +15,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var slider: UISlider!
     /// The label to display random target value to be matched by the player.
     @IBOutlet weak var targetLabel: UILabel!
+    /// The label to display the player's total score aggregated over multiple rounds.
+    @IBOutlet weak var scoreLabel: UILabel!
     
     /// The slider's current value rounded to the nearest integer.
     var currentValue = 0
@@ -24,6 +26,8 @@ class ViewController: UIViewController {
     /// or the player starts over the game completely. This random value is between
     /// 1 and 100 (inclusive), the slider's minimum and maximum values, respectively.
     var targetValue = 0
+    /// The player's total score aggregated over multiple rounds.
+    var score = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +46,8 @@ class ViewController: UIViewController {
         let difference = abs(targetValue - currentValue)
         // Calculate points for a round.
         let points = 100 - difference
+        
+        score += points
         
         let message = "You scored \(points) points"
         
@@ -76,6 +82,8 @@ class ViewController: UIViewController {
     func updateLabels() {
         // Display the target value the player needs to match.
         targetLabel.text = String(targetValue)
+        // Display the score.
+        scoreLabel.text = String(score)
     }
 }
 
