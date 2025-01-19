@@ -21,19 +21,42 @@ class ViewController: UIViewController {
     @IBOutlet weak var roundLabel: UILabel!
     
     /// The slider's current value rounded to the nearest integer.
-    var currentValue = 0
+    ///
+    /// When you set a new value, the slider is automatically updated.
+    var currentValue: Int {
+        get { lroundf(slider.value) }
+        set { slider.value = Float(newValue) }
+    }
     /// A random target value the player must try to match as close as they can.
     ///
     /// The random Int value is set when either a new round of the game begins
     /// or the player starts over the game completely. This random value is between
     /// 1 and 100 (inclusive), the slider's minimum and maximum values, respectively.
-    var targetValue = 0
+    ///
+    /// The `targetLabel` is updated after you set this property.
+    var targetValue = 0 {
+        didSet {
+            targetLabel.text = String(targetValue)
+        }
+    }
     /// The player's total score aggregated over multiple rounds.
-    var score = 0
+    ///
+    /// The `scoreLabel` is updated with the latest score after you set this property.
+    var score = 0 {
+        didSet {
+            scoreLabel.text = String(score)
+        }
+    }
     /// The current round being played.
     ///
     /// The round increments everytime the player makes a match. The round gets reset when a new game starts.
-    var round = 0
+    ///
+    /// The `roundLabel` is updated with the latest score after you set this property.
+    var round = 0 {
+        didSet {
+            roundLabel.text = String(round)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +75,6 @@ class ViewController: UIViewController {
         let difference = abs(targetValue - currentValue)
         // Calculate points for a round.
         let points = points(for: difference)
-        score += points
         
         let title = alertTitle(for: difference)
         let message = "You scored \(points) points"
@@ -61,6 +83,7 @@ class ViewController: UIViewController {
                                       message: message,
                                       preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default) { _ in
+            self.score += points
             self.startNewRound()
         }
         alert.addAction(action)
@@ -90,20 +113,6 @@ class ViewController: UIViewController {
         targetValue = Int.random(in: 1...100)
         // Set the current value to be halfway between slider's min & max values.
         currentValue = 50
-        // Update the slider to halfway position.
-        slider.value = Float(currentValue)
-        
-        updateLabels()
-    }
-    
-    /// Updates the UILabel objects to display game related information.
-    func updateLabels() {
-        // Display the target value the player needs to match.
-        targetLabel.text = String(targetValue)
-        // Display the score.
-        scoreLabel.text = String(score)
-        // Display the current round.
-        roundLabel.text = String(round)
     }
     
     // MARK: - Helper(s)
