@@ -13,6 +13,8 @@ class ViewController: UIViewController {
     ///
     /// The player drags this slider to match a target value as close as they can.
     @IBOutlet weak var slider: UISlider!
+    /// The label to display random target value to be matched by the player.
+    @IBOutlet weak var targetLabel: UILabel!
     
     /// The slider's current value rounded to the nearest integer.
     var currentValue = 0
@@ -51,6 +53,7 @@ class ViewController: UIViewController {
     ///
     /// Updates the target value with a random Int between slider's minimum and maximum value,
     /// plus sets the slider's current value to be halfway in between its minimum and maximum value.
+    /// It also updates the UI by display game related information in UILabel(s).
     func startNewRound() {
         // Set a new random target value between 1 and 100,
         // slider's min and max values, respectively.
@@ -59,6 +62,14 @@ class ViewController: UIViewController {
         currentValue = 50
         // Update the slider to halfway position.
         slider.value = Float(currentValue)
+        
+        updateLabels()
+    }
+    
+    /// Updates the UILabel objects to display game related information.
+    func updateLabels() {
+        // Display the target value the player needs to match.
+        targetLabel.text = String(targerValue)
     }
 }
 
