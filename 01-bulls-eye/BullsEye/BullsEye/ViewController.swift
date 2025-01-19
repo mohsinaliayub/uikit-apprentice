@@ -17,6 +17,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var targetLabel: UILabel!
     /// The label to display the player's total score aggregated over multiple rounds.
     @IBOutlet weak var scoreLabel: UILabel!
+    /// The label to display the current round being played.
+    @IBOutlet weak var roundLabel: UILabel!
     
     /// The slider's current value rounded to the nearest integer.
     var currentValue = 0
@@ -28,6 +30,10 @@ class ViewController: UIViewController {
     var targetValue = 0
     /// The player's total score aggregated over multiple rounds.
     var score = 0
+    /// The current round being played.
+    ///
+    /// The round increments everytime the player makes a match. The round gets reset when a new game starts.
+    var round = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +73,8 @@ class ViewController: UIViewController {
     /// plus sets the slider's current value to be halfway in between its minimum and maximum value.
     /// It also updates the UI by display game related information in UILabel(s).
     func startNewRound() {
+        // Increment the round.
+        round += 1
         // Set a new random target value between 1 and 100,
         // slider's min and max values, respectively.
         targetValue = Int.random(in: 1...100)
@@ -84,6 +92,8 @@ class ViewController: UIViewController {
         targetLabel.text = String(targetValue)
         // Display the score.
         scoreLabel.text = String(score)
+        // Display the current round.
+        roundLabel.text = String(round)
     }
 }
 
