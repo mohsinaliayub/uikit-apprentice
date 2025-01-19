@@ -60,11 +60,12 @@ class ViewController: UIViewController {
         let alert = UIAlertController(title: title,
                                       message: message,
                                       preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default)
+        let action = UIAlertAction(title: "OK", style: .default) { _ in
+            self.startNewRound()
+        }
         alert.addAction(action)
         
         present(alert, animated: true)
-        startNewRound()
     }
     
     /// Sets up a new round for the player.
