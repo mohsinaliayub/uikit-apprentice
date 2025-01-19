@@ -23,7 +23,7 @@ class ViewController: UIViewController {
     /// The random Int value is set when either a new round of the game begins
     /// or the player starts over the game completely. This random value is between
     /// 1 and 100 (inclusive), the slider's minimum and maximum values, respectively.
-    var targerValue = 0
+    var targetValue = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,8 +36,14 @@ class ViewController: UIViewController {
     }
     
     @IBAction func showAlert() {
-        let message = "The value of the slider is: \(currentValue)" + 
-                      "\nThe target value is: \(targerValue)"
+        // Calculate absolute difference between target and current value.
+        // The difference needs to be positive, so we don't subtract
+        // player's score.
+        let difference = abs(targetValue - currentValue)
+        // Calculate points for a round.
+        let points = 100 - difference
+        
+        let message = "You scored \(points) points"
         
         let alert = UIAlertController(title: "Hello, World",
                                       message: message,
@@ -57,7 +63,7 @@ class ViewController: UIViewController {
     func startNewRound() {
         // Set a new random target value between 1 and 100,
         // slider's min and max values, respectively.
-        targerValue = Int.random(in: 1...100)
+        targetValue = Int.random(in: 1...100)
         // Set the current value to be halfway between slider's min & max values.
         currentValue = 50
         // Update the slider to halfway position.
@@ -69,7 +75,7 @@ class ViewController: UIViewController {
     /// Updates the UILabel objects to display game related information.
     func updateLabels() {
         // Display the target value the player needs to match.
-        targetLabel.text = String(targerValue)
+        targetLabel.text = String(targetValue)
     }
 }
 
