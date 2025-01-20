@@ -117,6 +117,7 @@ class ViewController: UIViewController {
         currentValue = 50
     }
     
+    
     // MARK: - Helper(s)
     
     /// Calculates the alert dialog title for point difference between target and current value.
@@ -157,6 +158,7 @@ class ViewController: UIViewController {
     
     
     // MARK: - UI Customization
+    
     /// Customize the appearance of game slider.
     ///
     /// The slider is customized by:
