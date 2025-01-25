@@ -1,18 +1,15 @@
-# Bull's Eye
-A simple game to place the slider as close to the randomly chosen target value as you can.
-
-Your goal is to place the slider as close as possible to the target value. The closer you are, the more points you score.
-Enjoy!
+# Checklists
+A simple app that lets you organize to-do items into lists and then check off these items once you've completed them. You can also set a reminder on a to-do item that will make the iPhone pop up an alert on the due date, even when the app isn't running.
 
 ## UIKit Views & Controllers
 
 The following views are used in creating the UI of the app:
+- UITableView
+- UINavigationController
 - UIStackView
-- UISlider
+- UITextField
 - UILabel
 - UIButton
-- UIAlertController
-- WKWebView
 
 
 ## UIKit Concepts
@@ -30,9 +27,7 @@ The following extra concepts are used to make the app logic work:
 - Property Getters and Setters (**get**, **set**)
 - Property Observers (**willSet**, **didSet**)
 - Conditional Statements (**if-else**)
-- Random Number Generation (**Int.random(in:)**)
 - Implicitly unwrapped optionals
-- Loading web content from a bundled .html file
 - Customizing the appearance of views in Interface Builder and Swift code
 - Image Assets (**Assets.xcassets**)
 
@@ -40,6 +35,4 @@ The following extra concepts are used to make the app logic work:
 Above views and concepts are the entirety of this simple app.
 
 # Screenshots
-<img src="Screenshots/Round1.png" width="500" height="240" alt="Round 1 of Bull's Eye Game">
-<img src="Screenshots/Round2.png" width="500" height="240" alt="Round 2 of Bull's Eye Game">
-<img src="Screenshots/About.png" width="500" height="240" alt="About Screen of Bull's Eye Game">
+<!--<img src="Screenshots/Round1.png" width="500" height="240" alt="Round 1 of Bull's Eye Game">-->
