@@ -7,12 +7,29 @@
 
 import UIKit
 
+/// Methods for managing the addition, edition and cancellation of a to-do item.
+protocol AddItemViewControllerDelegate: AnyObject {
+    /// Tells the delegate the ``AddItemViewController`` canceled the addition of a new to-do item.
+    /// - Parameters:
+    ///   - controller: An `AddItemViewController` telling the delegate about the impending cancellation.
+    func addItemViewControllerDidCancel(_ controller: AddItemViewController)
+    
+    /// Tells the delegate the ``AddItemViewController`` finished creating a new to-do item..
+    ///
+    /// - Parameters:
+    ///   - controller: An `AddItemViewController` telling the delegate about the impending addition.
+    ///   - item: A new to-do object.
+    func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: ChecklistItem)
+}
+
 class AddItemViewController: UITableViewController {
     
     // MARK: - Outlets
     @IBOutlet private weak var textField: UITextField!
     @IBOutlet private weak var doneBarButton: UIBarButtonItem!
     
+    // MARK: - Properties
+    weak var delegate: AddItemViewControllerDelegate?
     
     // MARK: - View Controller Lifecycle
     
@@ -29,12 +46,13 @@ class AddItemViewController: UITableViewController {
     // MARK: - Actions
     
     @IBAction private func cancel() {
-        navigationController?.popViewController(animated: true)
+        delegate?.addItemViewControllerDidCancel(self)
     }
     
     @IBAction private func done() {
-        print(textField.text!)
-        navigationController?.popViewController(animated: true)
+        let item = ChecklistItem(text: textField.text!)
+        
+        delegate?.addItemViewController(self, didFinishAdding: item)
     }
     
     
