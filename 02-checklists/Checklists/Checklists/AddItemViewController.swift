@@ -8,9 +8,17 @@
 import UIKit
 
 class AddItemViewController: UITableViewController {
+    
+    // MARK: - Outlets
+    @IBOutlet private weak var textField: UITextField!
+    
+    
+    // MARK: - View Controller Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
     
     // MARK: - Actions
     
@@ -19,6 +27,14 @@ class AddItemViewController: UITableViewController {
     }
     
     @IBAction private func done() {
+        print(textField.text!)
         navigationController?.popViewController(animated: true)
+    }
+    
+    
+    // MARK: - Table View Delegate
+    
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        return nil
     }
 }
