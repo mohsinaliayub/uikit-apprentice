@@ -18,6 +18,7 @@ class ChecklistViewController: UITableViewController {
     }
     
     // MARK: - Table View Data Source
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }
@@ -40,6 +41,16 @@ class ChecklistViewController: UITableViewController {
         }
         
         return cell
+    }
+    
+    // MARK: - Table View Delegate
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) {
+            cell.accessoryType = cell.accessoryType == .none ? .checkmark : .none
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
