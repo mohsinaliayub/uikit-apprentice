@@ -11,34 +11,31 @@ class ChecklistViewController: UITableViewController {
     
     // Properties
     private let cellIdentifier = "ChecklistItem"
+    /// A collection of to-do items.
+    private var items = [ChecklistItem]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        // Create test data.
+        items.append(ChecklistItem(text: "Walk the dog"))
+        items.append(ChecklistItem(text: "Brush my teeth", checked: true))
+        items.append(ChecklistItem(text: "Learn iOS development", checked: true))
+        items.append(ChecklistItem(text: "Soccer practice"))
+        items.append(ChecklistItem(text: "Eat ice cream", checked: true))
     }
     
     // MARK: - Table View Data Source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return items.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         
-        let label = cell.viewWithTag(1000) as! UILabel
-        
-        if indexPath.row == 0 {
-            label.text = "Walk the dog"
-        } else if indexPath.row == 1 {
-            label.text = "Brush my teeth"
-        } else if indexPath.row == 2 {
-            label.text = "Learn iOS development"
-        } else if indexPath.row == 3 {
-            label.text = "Soccer practice"
-        } else if indexPath.row == 4 {
-            label.text = "Eat ice cream"
-        }
+        let item = items[indexPath.row]
+        configureText(for: cell, with: item)
+        configureCheckmark(for: cell, with: item)
         
         return cell
     }
@@ -47,10 +44,26 @@ class ChecklistViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) {
-            cell.accessoryType = cell.accessoryType == .none ? .checkmark : .none
+            let item = items[indexPath.row]
+            item.checked.toggle()
+            
+            configureCheckmark(for: cell, with: item)
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    // MARK: - Data Model Helpers
+    
+    /// Displays the description of the `item` in the cell.
+    private func configureText(for cell: UITableViewCell, with item: ChecklistItem) {
+        let label = cell.viewWithTag(1000) as! UILabel
+        label.text = item.text
+    }
+    
+    /// Displays a checkmark for the `item` in the cell if the `item` is marked as completed.
+    private func configureCheckmark(for cell: UITableViewCell, with item: ChecklistItem) {
+        cell.accessoryType = item.checked ? .checkmark : .none
     }
 }
 
