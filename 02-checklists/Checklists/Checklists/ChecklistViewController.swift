@@ -9,6 +9,19 @@ import UIKit
 
 class ChecklistViewController: UITableViewController {
     
+    // data-model
+    private let row0Text = "Walk the dog"
+    private let row1Text = "Brush my teeth"
+    private let row2Text = "Learn iOS development"
+    private let row3Text = "Soccer practice"
+    private let row4Text = "Eat ice cream"
+    
+    private var row0Checked = false
+    private var row1Checked = false
+    private var row2Checked = false
+    private var row3Checked = false
+    private var row4Checked = false
+    
     // Properties
     private let cellIdentifier = "ChecklistItem"
     
@@ -29,16 +42,18 @@ class ChecklistViewController: UITableViewController {
         let label = cell.viewWithTag(1000) as! UILabel
         
         if indexPath.row == 0 {
-            label.text = "Walk the dog"
+            label.text = row0Text
         } else if indexPath.row == 1 {
-            label.text = "Brush my teeth"
+            label.text = row1Text
         } else if indexPath.row == 2 {
-            label.text = "Learn iOS development"
+            label.text = row2Text
         } else if indexPath.row == 3 {
-            label.text = "Soccer practice"
+            label.text = row3Text
         } else if indexPath.row == 4 {
-            label.text = "Eat ice cream"
+            label.text = row4Text
         }
+        
+        configureCheckmark(for: cell, at: indexPath)
         
         return cell
     }
@@ -47,10 +62,48 @@ class ChecklistViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) {
-            cell.accessoryType = cell.accessoryType == .none ? .checkmark : .none
+            var isChecked = false
+            if indexPath.row == 0 {
+                row0Checked.toggle()
+                isChecked = row0Checked
+            } else if indexPath.row == 1 {
+                row1Checked.toggle()
+                isChecked = row1Checked
+            } else if indexPath.row == 2 {
+                row2Checked.toggle()
+                isChecked = row2Checked
+            } else if indexPath.row == 3 {
+                row3Checked.toggle()
+                isChecked = row3Checked
+            } else if indexPath.row == 4 {
+                row4Checked.toggle()
+                isChecked = row4Checked
+            }
+            
+            cell.accessoryType = isChecked ? .checkmark : .none
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    // MARK: - Data Model Helpers
+    
+    private func configureCheckmark(for cell: UITableViewCell, at indexPath: IndexPath) {
+        var isChecked = false
+        
+        if indexPath.row == 0 {
+            isChecked = row0Checked
+        } else if indexPath.row == 1 {
+            isChecked = row1Checked
+        } else if indexPath.row == 2 {
+            isChecked = row2Checked
+        } else if indexPath.row == 3 {
+            isChecked = row3Checked
+        } else if indexPath.row == 4 {
+            isChecked = row4Checked
+        }
+        
+        cell.accessoryType = isChecked ? .checkmark : .none
     }
 }
 
