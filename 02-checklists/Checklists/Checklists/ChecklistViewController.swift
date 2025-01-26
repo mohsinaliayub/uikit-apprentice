@@ -17,10 +17,10 @@ class ChecklistViewController: UITableViewController {
     private let row4Text = "Eat ice cream"
     
     private var row0Checked = false
-    private var row1Checked = false
-    private var row2Checked = false
+    private var row1Checked = true
+    private var row2Checked = true
     private var row3Checked = false
-    private var row4Checked = false
+    private var row4Checked = true
     
     // Properties
     private let cellIdentifier = "ChecklistItem"
