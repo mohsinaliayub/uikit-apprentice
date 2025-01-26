@@ -7,7 +7,12 @@
 
 import UIKit
 
-/// Methods for managing the addition, edition and cancellation of a to-do item.
+/// Methods for managing the adding, editing and cancelling of a to-do item.
+///
+/// Use the methods of this protocol to manage the following:
+/// - The user cancelled the creation of a new to-do item.
+/// - The user created a new to-do item.
+/// - The existing to-do item has been edited.
 protocol AddItemViewControllerDelegate: AnyObject {
     /// Tells the delegate the ``AddItemViewController`` canceled the addition of a new to-do item.
     /// - Parameters:
