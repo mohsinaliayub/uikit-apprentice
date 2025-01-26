@@ -11,6 +11,7 @@ class AddItemViewController: UITableViewController {
     
     // MARK: - Outlets
     @IBOutlet private weak var textField: UITextField!
+    @IBOutlet private weak var doneBarButton: UIBarButtonItem!
     
     
     // MARK: - View Controller Lifecycle
@@ -42,4 +43,30 @@ class AddItemViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         return nil
     }
+}
+
+// MARK: - Text Field Delegate
+
+extension AddItemViewController: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // Read current text.
+        let oldText = textField.text!
+        // Create a Range in our oldText.
+        let stringRange = Range(range, in: oldText)!
+        // Replace the range with new string.
+        let newText = oldText.replacingCharacters(in: stringRange, with: string)
+        
+        // Disable the button if newText is empty.
+        doneBarButton.isEnabled = !newText.isEmpty
+        
+        return true
+    }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        // Disable the done button.
+        doneBarButton.isEnabled = false
+        return true
+    }
+    
 }
