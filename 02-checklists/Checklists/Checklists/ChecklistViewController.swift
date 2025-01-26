@@ -53,6 +53,14 @@ class ChecklistViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        // Remove the to-do item from items array.
+        items.remove(at: indexPath.row)
+        
+        // Remove the item from table view to keep it in sync with data.
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
+    
     // MARK: - Data Model Helpers
     
     /// Displays the description of the `item` in the cell.
