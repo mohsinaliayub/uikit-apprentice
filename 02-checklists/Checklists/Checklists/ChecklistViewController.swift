@@ -65,5 +65,21 @@ class ChecklistViewController: UITableViewController {
     private func configureCheckmark(for cell: UITableViewCell, with item: ChecklistItem) {
         cell.accessoryType = item.checked ? .checkmark : .none
     }
+    
+    // MARK: - Actions
+    
+    @IBAction func addItem(_ sender: UIBarButtonItem) {
+        // Find the index for the new to-do item.
+        let newRowIndex = items.count
+        
+        // Create a new to-do item and append it to the ``items`` array.
+        let item = ChecklistItem(text: "I am a new row")
+        items.append(item)
+        
+        // Let the table view know that there are new rows to be added.
+        let indexPath = IndexPath(row: newRowIndex, section: 0)
+        tableView.insertRows(at: [indexPath], with: .automatic)
+    }
+    
 }
 
