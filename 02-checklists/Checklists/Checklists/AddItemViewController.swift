@@ -19,6 +19,11 @@ class AddItemViewController: UITableViewController {
         super.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Open a keyboard before the view appears.
+        textField.becomeFirstResponder()
+    }
     
     // MARK: - Actions
     
