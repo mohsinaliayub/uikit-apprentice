@@ -34,11 +34,8 @@ class ChecklistViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         
         let item = items[indexPath.row]
-        
-        let label = cell.viewWithTag(1000) as! UILabel
-        label.text = item.text
-        
-        configureCheckmark(for: cell, at: indexPath)
+        configureText(for: cell, with: item)
+        configureCheckmark(for: cell, with: item)
         
         return cell
     }
@@ -50,7 +47,7 @@ class ChecklistViewController: UITableViewController {
             let item = items[indexPath.row]
             item.checked.toggle()
             
-            configureCheckmark(for: cell, at: indexPath)
+            configureCheckmark(for: cell, with: item)
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
@@ -58,9 +55,14 @@ class ChecklistViewController: UITableViewController {
     
     // MARK: - Data Model Helpers
     
-    private func configureCheckmark(for cell: UITableViewCell, at indexPath: IndexPath) {
-        let item = items[indexPath.row]
-        
+    /// Displays the description of the `item` in the cell.
+    private func configureText(for cell: UITableViewCell, with item: ChecklistItem) {
+        let label = cell.viewWithTag(1000) as! UILabel
+        label.text = item.text
+    }
+    
+    /// Displays a checkmark for the `item` in the cell if the `item` is marked as completed.
+    private func configureCheckmark(for cell: UITableViewCell, with item: ChecklistItem) {
         cell.accessoryType = item.checked ? .checkmark : .none
     }
 }
