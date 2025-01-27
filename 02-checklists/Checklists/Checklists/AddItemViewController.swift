@@ -14,7 +14,7 @@ import UIKit
 /// - The user created a new to-do item.
 /// - The existing to-do item has been edited.
 protocol AddItemViewControllerDelegate: AnyObject {
-    /// Tells the delegate the ``AddItemViewController`` canceled the addition of a new to-do item.
+    /// Tells the delegate the ``AddItemViewController`` canceled the adding/editing of a to-do item.
     /// - Parameters:
     ///   - controller: An `AddItemViewController` telling the delegate about the impending cancellation.
     func addItemViewControllerDidCancel(_ controller: AddItemViewController)
@@ -25,6 +25,13 @@ protocol AddItemViewControllerDelegate: AnyObject {
     ///   - controller: An `AddItemViewController` telling the delegate about the impending addition.
     ///   - item: A new to-do object.
     func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: ChecklistItem)
+    
+    /// Tells the delegate the ``AddItemViewController`` finished editing the existing to-do item..
+    ///  
+    /// - Parameters:
+    ///   - controller: An `AddItemViewController` telling the delegate about the impending editing of a to-do item.
+    ///   - item: The edited to-do item.
+    func addItemViewController(_ controller: AddItemViewController, didFinishEditing item: ChecklistItem)
 }
 
 class AddItemViewController: UITableViewController {
@@ -67,9 +74,15 @@ class AddItemViewController: UITableViewController {
     }
     
     @IBAction private func done() {
-        let item = ChecklistItem(text: textField.text!)
-        
-        delegate?.addItemViewController(self, didFinishAdding: item)
+        // Check if we are editing an existing item.
+        // Call appropriate delegate method to notify of the procedure.
+        if let item = itemToEdit {
+            item.text = textField.text!
+            delegate?.addItemViewController(self, didFinishEditing: item)
+        } else {
+            let item = ChecklistItem(text: textField.text!)
+            delegate?.addItemViewController(self, didFinishAdding: item)
+        }
     }
     
     

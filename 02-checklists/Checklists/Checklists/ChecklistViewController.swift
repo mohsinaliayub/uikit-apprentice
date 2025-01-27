@@ -106,8 +106,13 @@ extension ChecklistViewController: AddItemViewControllerDelegate {
         addChecklistItem(item)
     }
     
+    func addItemViewController(_ controller: AddItemViewController, didFinishEditing item: ChecklistItem) {
+        navigationController?.popViewController(animated: true)
+        updateChecklistItem(item)
+    }
+    
     /// Adds a to-do item to the `items` array and updates the table view.
-    /// - Parameter item: The to-do item.
+    /// - Parameter item: The new to-do item.
     private func addChecklistItem(_ item: ChecklistItem) {
         // Find the index for the new to-do item.
         let newRowIndex = items.count
@@ -118,5 +123,19 @@ extension ChecklistViewController: AddItemViewControllerDelegate {
         // Let the table view know that there are new rows to be added.
         let indexPath = IndexPath(row: newRowIndex, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
+    }
+    
+    /// Adds a to-do item to the `items` array and updates the table view.
+    /// - Parameter item: The edited to-do item.
+    private func updateChecklistItem(_ item: ChecklistItem) {
+        // Find the index for the item in items array.
+        if let index = items.firstIndex(of: item) {
+            // Create an index path.
+            let indexPath = IndexPath(row: index, section: 0)
+            // Find the cell for edited item, and update the text.
+            if let cell = tableView.cellForRow(at: indexPath) {
+                configureText(for: cell, with: item)
+            }
+        }
     }
 }

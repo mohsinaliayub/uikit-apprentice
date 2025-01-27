@@ -11,7 +11,7 @@ import Foundation
 ///
 /// You can and should specify a unique description for your to-do item to be easily identified among others.
 /// The to-do item can be set as complete/uncomplete.
-class ChecklistItem {
+class ChecklistItem: NSObject {
     /// A description to identify a to-do item. Please specify a unique description to easily identify the to-do item.
     var text: String
     /// The state of the to-do item, whether it is completed or not.
