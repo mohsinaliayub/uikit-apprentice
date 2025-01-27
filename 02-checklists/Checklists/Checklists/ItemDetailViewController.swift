@@ -1,5 +1,5 @@
 //
-//  AddItemViewController.swift
+//  ItemDetailViewController.swift
 //  Checklists
 //
 //  Created by Mohsin Ali Ayub on 26.01.25.
@@ -13,35 +13,35 @@ import UIKit
 /// - The user cancelled the creation of a new to-do item.
 /// - The user created a new to-do item.
 /// - The existing to-do item has been edited.
-protocol AddItemViewControllerDelegate: AnyObject {
-    /// Tells the delegate the ``AddItemViewController`` canceled the adding/editing of a to-do item.
+protocol ItemDetailViewControllerDelegate: AnyObject {
+    /// Tells the delegate the ``ItemDetailViewController`` canceled the adding/editing of a to-do item.
     /// - Parameters:
-    ///   - controller: An `AddItemViewController` telling the delegate about the impending cancellation.
-    func addItemViewControllerDidCancel(_ controller: AddItemViewController)
+    ///   - controller: An `ItemDetailViewController` telling the delegate about the impending cancellation.
+    func itemDetailViewControllerDidCancel(_ controller: ItemDetailViewController)
     
-    /// Tells the delegate the ``AddItemViewController`` finished creating a new to-do item..
+    /// Tells the delegate the ``ItemDetailViewController`` finished creating a new to-do item..
     ///
     /// - Parameters:
-    ///   - controller: An `AddItemViewController` telling the delegate about the impending addition.
+    ///   - controller: An `ItemDetailViewController` telling the delegate about the impending addition.
     ///   - item: A new to-do object.
-    func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: ChecklistItem)
+    func itemDetailViewController(_ controller: ItemDetailViewController, didFinishAdding item: ChecklistItem)
     
-    /// Tells the delegate the ``AddItemViewController`` finished editing the existing to-do item..
-    ///  
+    /// Tells the delegate the ``ItemDetailViewController`` finished editing the existing to-do item..
+    ///
     /// - Parameters:
-    ///   - controller: An `AddItemViewController` telling the delegate about the impending editing of a to-do item.
+    ///   - controller: An `ItemDetailViewController` telling the delegate about the impending editing of a to-do item.
     ///   - item: The edited to-do item.
-    func addItemViewController(_ controller: AddItemViewController, didFinishEditing item: ChecklistItem)
+    func itemDetailViewController(_ controller: ItemDetailViewController, didFinishEditing item: ChecklistItem)
 }
 
-class AddItemViewController: UITableViewController {
+class ItemDetailViewController: UITableViewController {
     
     // MARK: - Outlets
     @IBOutlet private weak var textField: UITextField!
     @IBOutlet private weak var doneBarButton: UIBarButtonItem!
     
     // MARK: - Properties
-    weak var delegate: AddItemViewControllerDelegate?
+    weak var delegate: ItemDetailViewControllerDelegate?
     /// The to-do item to edit. It is `nil` when creating a new to-do item.
     var itemToEdit: ChecklistItem?
     
@@ -70,7 +70,7 @@ class AddItemViewController: UITableViewController {
     // MARK: - Actions
     
     @IBAction private func cancel() {
-        delegate?.addItemViewControllerDidCancel(self)
+        delegate?.itemDetailViewControllerDidCancel(self)
     }
     
     @IBAction private func done() {
@@ -78,10 +78,10 @@ class AddItemViewController: UITableViewController {
         // Call appropriate delegate method to notify of the procedure.
         if let item = itemToEdit {
             item.text = textField.text!
-            delegate?.addItemViewController(self, didFinishEditing: item)
+            delegate?.itemDetailViewController(self, didFinishEditing: item)
         } else {
             let item = ChecklistItem(text: textField.text!)
-            delegate?.addItemViewController(self, didFinishAdding: item)
+            delegate?.itemDetailViewController(self, didFinishAdding: item)
         }
     }
     
@@ -95,7 +95,7 @@ class AddItemViewController: UITableViewController {
 
 // MARK: - Text Field Delegate
 
-extension AddItemViewController: UITextFieldDelegate {
+extension ItemDetailViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         // Read current text.

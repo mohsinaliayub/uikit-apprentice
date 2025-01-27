@@ -79,10 +79,10 @@ class ChecklistViewController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AddItem" {
-            let addItemVC = segue.destination as! AddItemViewController
+            let addItemVC = segue.destination as! ItemDetailViewController
             addItemVC.delegate = self
         } else if segue.identifier == "EditItem" {
-            let editItemVC = segue.destination as! AddItemViewController
+            let editItemVC = segue.destination as! ItemDetailViewController
             editItemVC.delegate = self
             
             // Get the indexPath for the cell that triggered this segue.
@@ -95,18 +95,18 @@ class ChecklistViewController: UITableViewController {
 
 // MARK: - Add Item View Controller Delegate
 
-extension ChecklistViewController: AddItemViewControllerDelegate {
+extension ChecklistViewController: ItemDetailViewControllerDelegate {
     
-    func addItemViewControllerDidCancel(_ controller: AddItemViewController) {
+    func itemDetailViewControllerDidCancel(_ controller: ItemDetailViewController) {
         navigationController?.popViewController(animated: true)
     }
     
-    func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: ChecklistItem) {
+    func itemDetailViewController(_ controller: ItemDetailViewController, didFinishAdding item: ChecklistItem) {
         navigationController?.popViewController(animated: true)
         addChecklistItem(item)
     }
     
-    func addItemViewController(_ controller: AddItemViewController, didFinishEditing item: ChecklistItem) {
+    func itemDetailViewController(_ controller: ItemDetailViewController, didFinishEditing item: ChecklistItem) {
         navigationController?.popViewController(animated: true)
         updateChecklistItem(item)
     }
