@@ -71,7 +71,8 @@ class ChecklistViewController: UITableViewController {
     
     /// Displays a checkmark for the `item` in the cell if the `item` is marked as completed.
     private func configureCheckmark(for cell: UITableViewCell, with item: ChecklistItem) {
-        cell.accessoryType = item.checked ? .checkmark : .none
+        let label = cell.viewWithTag(1001) as! UILabel
+        label.text = item.checked ? "√" : "  "
     }
     
     // MARK: - Navigation
