@@ -35,11 +35,23 @@ class AddItemViewController: UITableViewController {
     
     // MARK: - Properties
     weak var delegate: AddItemViewControllerDelegate?
+    /// The to-do item to edit. It is `nil` when creating a new to-do item.
+    var itemToEdit: ChecklistItem?
     
     // MARK: - View Controller Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // If there's an item to edit
+        //     - Update the title in navigation bar
+        //     - Set the text of textField to item's text
+        //     - Enable the done button since to-do item already contains text.
+        if let itemToEdit {
+            title = "Edit Item"
+            textField.text = itemToEdit.text
+            doneBarButton.isEnabled = true
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
