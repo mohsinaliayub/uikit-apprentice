@@ -186,7 +186,7 @@ extension ChecklistViewController: ItemDetailViewControllerDelegate {
         tableView.insertRows(at: [indexPath], with: .automatic)
     }
     
-    /// Adds a to-do item to the `items` array and updates the table view.
+    /// Updates an existing to-do item in the `items` array and updates the table view.
     /// - Parameter item: The edited to-do item.
     private func updateChecklistItem(_ item: ChecklistItem) {
         // Find the index for the item in items array.
