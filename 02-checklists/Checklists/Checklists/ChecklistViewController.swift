@@ -48,6 +48,9 @@ class ChecklistViewController: UITableViewController {
             item.checked.toggle()
             
             configureCheckmark(for: cell, with: item)
+            
+            // Updated an existing item -> Save items array.
+            saveChecklistItems()
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
@@ -59,6 +62,9 @@ class ChecklistViewController: UITableViewController {
         
         // Remove the item from table view to keep it in sync with data.
         tableView.deleteRows(at: [indexPath], with: .automatic)
+        
+        // Removed an item from items -> Save items array.
+        saveChecklistItems()
     }
     
     // MARK: - Data Model Helpers
@@ -108,6 +114,22 @@ class ChecklistViewController: UITableViewController {
     func dataFilePath() -> URL {
         documentsDirectory().appending(path: "Checklists.plist")
     }
+    
+    /// Saves Checklist objects into a property list file.
+    func saveChecklistItems() {
+        // Create a property list encoder.
+        let encoder = PropertyListEncoder()
+        
+        do {
+            // Encode checklist objects into data.
+            let data = try encoder.encode(items)
+            
+            // Save encoded data to file.
+            try data.write(to: dataFilePath())
+        } catch {
+            print("Error encoding item array: \(error.localizedDescription)")
+        }
+    }
 }
 
 // MARK: - Add Item View Controller Delegate
@@ -121,11 +143,15 @@ extension ChecklistViewController: ItemDetailViewControllerDelegate {
     func itemDetailViewController(_ controller: ItemDetailViewController, didFinishAdding item: ChecklistItem) {
         navigationController?.popViewController(animated: true)
         addChecklistItem(item)
+        // Added a new item -> Save items array.
+        saveChecklistItems()
     }
     
     func itemDetailViewController(_ controller: ItemDetailViewController, didFinishEditing item: ChecklistItem) {
         navigationController?.popViewController(animated: true)
         updateChecklistItem(item)
+        // Updated an existing item -> Save items array.
+        saveChecklistItems()
     }
     
     /// Adds a to-do item to the `items` array and updates the table view.
