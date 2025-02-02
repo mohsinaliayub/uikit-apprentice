@@ -16,12 +16,8 @@ class ChecklistViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Create test data.
-        items.append(ChecklistItem(text: "Walk the dog"))
-        items.append(ChecklistItem(text: "Brush my teeth", checked: true))
-        items.append(ChecklistItem(text: "Learn iOS development", checked: true))
-        items.append(ChecklistItem(text: "Soccer practice"))
-        items.append(ChecklistItem(text: "Eat ice cream", checked: true))
+        // Load checklist items (i.e. to-do items) at app start.
+        loadChecklistItems()
     }
     
     // MARK: - Table View Data Source
@@ -125,9 +121,28 @@ class ChecklistViewController: UITableViewController {
             let data = try encoder.encode(items)
             
             // Save encoded data to file.
-            try data.write(to: dataFilePath())
+            try data.write(to: dataFilePath(), options: .atomic)
         } catch {
             print("Error encoding item array: \(error.localizedDescription)")
+        }
+    }
+    
+    /// Reads Checklist objects from a property list file, and loads them in ``items`` array.
+    func loadChecklistItems() {
+        // Get the URL for property list file.
+        let filePath = dataFilePath()
+        
+        // Read data from plist file
+        if let data = try? Data(contentsOf: filePath) {
+            // Create a decoder to decode binary data.
+            let decoder = PropertyListDecoder()
+            
+            // Decode data and save it in our items array. Handle error if it fails.
+            do {
+                items = try decoder.decode([ChecklistItem].self, from: data)
+            } catch {
+                print("Error decoding item array: \(error.localizedDescription)")
+            }
         }
     }
 }
