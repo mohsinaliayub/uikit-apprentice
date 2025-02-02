@@ -44,15 +44,19 @@ class AllListsViewController: UIViewController {
 
 extension AllListsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return lists.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         
+        let list = lists[indexPath.row]
+        
         var cellConfiguration = UIListContentConfiguration.cell()
-        cellConfiguration.text = "List \(indexPath.row)"
+        cellConfiguration.text = list.name
+        
         cell.contentConfiguration = cellConfiguration
+        cell.accessoryType = .detailDisclosureButton
         
         return cell
     }
