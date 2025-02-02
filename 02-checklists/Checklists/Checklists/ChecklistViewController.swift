@@ -91,6 +91,23 @@ class ChecklistViewController: UITableViewController {
             }
         }
     }
+    
+    // MARK: - Data Persistence
+    
+    /// Returns a URL for the sandboxed Documents directory in the user domain.
+    ///
+    /// - Returns: URL for the Documents directory.
+    func documentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
+    
+    /// Returns a URL for the property list file to save/read Checklist objects.
+    ///
+    /// - Returns: A URL for the property list file.
+    func dataFilePath() -> URL {
+        documentsDirectory().appending(path: "Checklists.plist")
+    }
 }
 
 // MARK: - Add Item View Controller Delegate
