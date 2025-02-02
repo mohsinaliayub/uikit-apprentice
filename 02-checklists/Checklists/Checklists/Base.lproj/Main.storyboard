@@ -34,7 +34,7 @@
                             <constraint firstItem="ljY-g5-I33" firstAttribute="trailing" secondItem="Hkg-qb-APZ" secondAttribute="trailing" id="yPp-kP-3Jy"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Checklists" id="OFp-K5-eWc"/>
+                    <navigationItem key="navigationItem" title="Checklists" largeTitleDisplayMode="always" id="OFp-K5-eWc"/>
                     <connections>
                         <outlet property="tableView" destination="ljY-g5-I33" id="R5f-Q8-ZF5"/>
                         <segue destination="IZK-dA-BQl" kind="show" identifier="ShowChecklist" id="bQM-ph-q6e"/>
