@@ -71,7 +71,9 @@ class AllListsViewController: UIViewController {
             let listDetailVC = segue.destination as! ListDetailViewController
             listDetailVC.delegate = self
         } else if segue.identifier == editChecklistSegueIdentifier {
-            
+            let listDetailVC = segue.destination as! ListDetailViewController
+            listDetailVC.delegate = self
+            listDetailVC.checklistToEdit = sender as? Checklist
         }
     }
 }
@@ -111,6 +113,12 @@ extension AllListsViewController: UITableViewDelegate {
         
         performSegue(withIdentifier: showChecklistSegueIdentifier, sender: checklist)
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        // Go to ListDetailViewController to edit a checklist
+        let checklist = lists[indexPath.row]
+        performSegue(withIdentifier: editChecklistSegueIdentifier, sender: checklist)
     }
 }
 
