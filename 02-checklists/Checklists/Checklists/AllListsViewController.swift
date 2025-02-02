@@ -28,6 +28,15 @@ class AllListsViewController: UIViewController {
 
         // Register a default cell.
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        
+        createDummyData()
+    }
+    
+    private func createDummyData() {
+        lists.append(Checklist(name: "Birthdays"))
+        lists.append(Checklist(name: "Groceries"))
+        lists.append(Checklist(name: "Cool Apps"))
+        lists.append(Checklist(name: "To Do"))
     }
 }
 
