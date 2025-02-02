@@ -8,8 +8,16 @@
 import UIKit
 
 class AllListsViewController: UIViewController {
+    
+    // MARK: Properties
+    
     /// Reuse identifier for table view cell.
     private let cellIdentifier = "ChecklistCell"
+    /// Identifier for a push segue to display details of a single To-do list.
+    private let showChecklistSegueIdentifier = "ShowChecklist"
+    
+    // MARK: Outlets
+    
     /// The table view to display and manage a list of To-do lists.
     @IBOutlet private weak var tableView: UITableView!
     
@@ -42,5 +50,9 @@ extension AllListsViewController: UITableViewDataSource {
 // MARK: - Table View Delegate
 
 extension AllListsViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Navigate to ChecklistViewController. Deselect the row.
+        performSegue(withIdentifier: showChecklistSegueIdentifier, sender: nil)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }

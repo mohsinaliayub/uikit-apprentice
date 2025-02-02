@@ -37,7 +37,7 @@
                     <navigationItem key="navigationItem" title="Checklists" id="OFp-K5-eWc"/>
                     <connections>
                         <outlet property="tableView" destination="ljY-g5-I33" id="R5f-Q8-ZF5"/>
-                        <segue destination="IZK-dA-BQl" kind="show" identifier="Checklist" id="bQM-ph-q6e"/>
+                        <segue destination="IZK-dA-BQl" kind="show" identifier="ShowChecklist" id="bQM-ph-q6e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bdw-dL-mXZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -54,14 +54,14 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="ChecklistItem" id="zPE-er-avl">
-                                <rect key="frame" x="0.0" y="50" width="375" height="43"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zPE-er-avl" id="RcV-4R-Dwu">
-                                    <rect key="frame" x="0.0" y="0.0" width="316.5" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="316.5" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nwv-qs-h9u" userLabel="Description">
-                                            <rect key="frame" x="36" y="11" width="264.5" height="21"/>
+                                            <rect key="frame" x="36" y="11" width="264.5" height="21.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
