@@ -38,6 +38,16 @@ class AllListsViewController: UIViewController {
         lists.append(Checklist(name: "Cool Apps"))
         lists.append(Checklist(name: "To Do"))
     }
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == showChecklistSegueIdentifier {
+            // Populate necessary properties to work on.
+            let checklistVC = segue.destination as! ChecklistViewController
+            checklistVC.checklist = sender as? Checklist
+        }
+    }
 }
 
 // MARK: - Table View Data Source
@@ -67,7 +77,9 @@ extension AllListsViewController: UITableViewDataSource {
 extension AllListsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Navigate to ChecklistViewController. Deselect the row.
-        performSegue(withIdentifier: showChecklistSegueIdentifier, sender: nil)
+        let checklist = lists[indexPath.row]
+        
+        performSegue(withIdentifier: showChecklistSegueIdentifier, sender: checklist)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

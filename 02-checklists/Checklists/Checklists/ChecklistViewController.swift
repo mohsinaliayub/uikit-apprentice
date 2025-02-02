@@ -13,9 +13,12 @@ class ChecklistViewController: UITableViewController {
     private let cellIdentifier = "ChecklistItem"
     /// A collection of to-do items.
     private var items = [ChecklistItem]()
+    /// A to-do list containing multiple to-do items.
+    var checklist: Checklist!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = checklist.name
         // Load checklist items (i.e. to-do items) at app start.
         loadChecklistItems()
     }
