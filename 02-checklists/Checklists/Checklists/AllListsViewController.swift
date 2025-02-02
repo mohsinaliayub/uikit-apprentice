@@ -15,6 +15,8 @@ class AllListsViewController: UIViewController {
     private let cellIdentifier = "ChecklistCell"
     /// Identifier for a push segue to display details of a single To-do list.
     private let showChecklistSegueIdentifier = "ShowChecklist"
+    /// A collection of to-do lists. Each to-do list has multiple to-do items in it.
+    private var lists = [Checklist]()
     
     // MARK: Outlets
     
