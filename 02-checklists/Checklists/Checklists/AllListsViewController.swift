@@ -36,19 +36,8 @@ class AllListsViewController: UIViewController {
         // Register a default cell.
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         
-        createDummyData()
-    }
-    
-    private func createDummyData() {
-        lists.append(Checklist(name: "Birthdays"))
-        lists.append(Checklist(name: "Groceries"))
-        lists.append(Checklist(name: "Cool Apps"))
-        lists.append(Checklist(name: "To Do"))
-        
-        for list in lists {
-            let item = ChecklistItem(text: "Item for \(list.name)")
-            list.addItem(item)
-        }
+        // Load checklists.
+        loadChecklists()
     }
     
     // MARK: - Data Display Helpers
@@ -79,6 +68,58 @@ class AllListsViewController: UIViewController {
             let listDetailVC = segue.destination as! ListDetailViewController
             listDetailVC.delegate = self
             listDetailVC.checklistToEdit = sender as? Checklist
+        }
+    }
+    
+    // MARK: - Data Persistence
+        
+    /// Returns a URL for the sandboxed Documents directory in the user domain.
+    ///
+    /// - Returns: URL for the Documents directory.
+    func documentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
+    
+    /// Returns a URL for the property list file to save/read Checklist objects.
+    ///
+    /// - Returns: A URL for the property list file.
+    func dataFilePath() -> URL {
+        documentsDirectory().appending(path: "Checklists.plist")
+    }
+    
+    /// Saves Checklists into a property list file.
+    func saveChecklists() {
+        // Create a property list encoder.
+        let encoder = PropertyListEncoder()
+        
+        do {
+            // Encode checklist objects into data.
+            let data = try encoder.encode(lists)
+            
+            // Save encoded data to file.
+            try data.write(to: dataFilePath(), options: .atomic)
+        } catch {
+            print("Error encoding item array: \(error.localizedDescription)")
+        }
+    }
+    
+    /// Reads Checklist objects from a property list file, and loads them in ``lists`` array.
+    func loadChecklists() {
+        // Get the URL for property list file.
+        let filePath = dataFilePath()
+        
+        // Read data from plist file
+        if let data = try? Data(contentsOf: filePath) {
+            // Create a decoder to decode binary data.
+            let decoder = PropertyListDecoder()
+            
+            // Decode data and save it in our items array. Handle error if it fails.
+            do {
+                lists = try decoder.decode([Checklist].self, from: data)
+            } catch {
+                print("Error decoding item array: \(error.localizedDescription)")
+            }
         }
     }
 }

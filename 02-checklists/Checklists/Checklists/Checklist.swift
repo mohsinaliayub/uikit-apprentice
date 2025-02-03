@@ -11,16 +11,18 @@ import Foundation
 ///
 /// Specify a unique name to easily identify a to-do list later. Each to-do list has multiple to-do
 /// items related to it.
-class Checklist {
+final class Checklist {
     /// A unique identifier for to-do list.
-    private let id = UUID()
+    private let id: UUID
     /// The name to identify a to-do list. Specifying a unique name will easily identify the to-do list.
     var name: String
     /// The to-do items.
-    private(set) var items = [ChecklistItem]()
+    private(set) var items: [ChecklistItem]
     
     init(name: String) {
+        self.id = UUID()
         self.name = name
+        self.items = []
     }
     
     /// Removes a to-do item at specified index.
@@ -44,3 +46,5 @@ extension Checklist: Equatable {
         lhs.id == rhs.id
     }
 }
+
+extension Checklist: Codable { }
