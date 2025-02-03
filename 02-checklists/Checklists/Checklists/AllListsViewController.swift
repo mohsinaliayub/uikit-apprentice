@@ -24,7 +24,7 @@ class AllListsViewController: UIViewController {
         checklistManager.checklists
     }
     /// Manages a collection of checklists. Responsible for data persistence.
-    var checklistManager: ChecklistManager!
+    var checklistManager: ChecklistsManager!
     
     // MARK: Outlets
     

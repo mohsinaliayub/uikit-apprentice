@@ -10,7 +10,7 @@ import Foundation
 /// Manages to-do lists.
 ///
 /// It is responsible for saving and loading of to-do lists.
-class ChecklistManager {
+class ChecklistsManager {
     /// A collection of to-do lists. Each to-do list has multiple to-do items in it.
     private(set) var checklists: [Checklist]
     

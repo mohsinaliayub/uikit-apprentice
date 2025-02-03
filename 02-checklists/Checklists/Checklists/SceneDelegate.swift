@@ -10,13 +10,16 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    /// Manages checklists for this app.
+    private let checklistManager = ChecklistsManager()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        let navigationController = window!.rootViewController as! UINavigationController
+        let allListsVC = navigationController.viewControllers[0] as! AllListsViewController
+        allListsVC.checklistManager = checklistManager
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -53,7 +56,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: Helper Methods
     
     func saveData() {
-        
+        checklistManager.saveChecklists()
     }
 
 }
