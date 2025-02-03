@@ -14,7 +14,7 @@
 		B6F5AC812D457441009193D8 /* Exceptions for "Checklists" folder in "Checklists" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				Resources/Info.plist,
 			);
 			target = B6F5AC6E2D45743E009193D8 /* Checklists */;
 		};
@@ -147,7 +147,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 54L66DHDVH;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Checklists/Info.plist;
+				INFOPLIST_FILE = Checklists/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -180,7 +180,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 54L66DHDVH;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Checklists/Info.plist;
+				INFOPLIST_FILE = Checklists/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
