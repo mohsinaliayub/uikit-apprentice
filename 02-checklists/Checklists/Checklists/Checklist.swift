@@ -16,11 +16,25 @@ class Checklist {
     private let id = UUID()
     /// The name to identify a to-do list. Specifying a unique name will easily identify the to-do list.
     var name: String
-    /// An array of to-do items.
-//    var items = [ChecklistItem]()
+    /// The to-do items.
+    private(set) var items = [ChecklistItem]()
     
     init(name: String) {
         self.name = name
+    }
+    
+    /// Removes a to-do item at specified index.
+    ///
+    /// - Parameter index: The position of the to-do item to remove. index must be a valid index of the array.
+    func removeItem(at index: Int) {
+        items.remove(at: index)
+    }
+    
+    /// Adds a to-do item to this checklist.
+    ///
+    /// - Parameter item: The to-do item to add to checklist.
+    func addItem(_ item: ChecklistItem) {
+        items.append(item)
     }
 }
 
