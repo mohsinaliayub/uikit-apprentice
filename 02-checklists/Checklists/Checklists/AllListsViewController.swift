@@ -44,6 +44,11 @@ class AllListsViewController: UIViewController {
         lists.append(Checklist(name: "Groceries"))
         lists.append(Checklist(name: "Cool Apps"))
         lists.append(Checklist(name: "To Do"))
+        
+        for list in lists {
+            let item = ChecklistItem(text: "Item for \(list.name)")
+            list.addItem(item)
+        }
     }
     
     // MARK: - Data Display Helpers
