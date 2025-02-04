@@ -20,6 +20,8 @@ class ChecklistsManager {
         loadChecklists()
         // Register default values.
         registerDefaults()
+        // Handle the app's fresh install run experience.
+        handleFirstRunExperience()
     }
     
     // MARK: - Checklist Helpers
@@ -38,10 +40,33 @@ class ChecklistsManager {
         checklists.append(checklist)
     }
     
+    /// Handle the unique experience of a fresh app install.
+    ///
+    /// It creates a new Checklist and makes the index of the Checklist as selected,
+    /// so user is navigated to that Checklist and start creating new to-do items right away.
+    ///
+    /// It resets the first run so user should not navigate to default checklist everytime the app is run.
+    private func handleFirstRunExperience() {
+        let userDefaults = UserDefaults.standard
+        let firstRun = userDefaults.bool(forKey: UserDefaultsKeys.firstRun)
+        
+        if firstRun {
+            let checklist = Checklist(name: "List")
+            checklists.append(checklist)
+            
+            indexOfSelectedChecklist = 0
+            userDefaults.set(false, forKey: UserDefaultsKeys.firstRun)
+        }
+    }
+    
     // MARK: - UserDefaults Helpers
     
+    /// Registers a default set of values for `selected checklist` and app's `first run` after a fresh install.
     private func registerDefaults() {
-        let dictionary = [UserDefaultsKeys.selectedChecklistIndex: -1]
+        let dictionary: [String: Any] = [
+            UserDefaultsKeys.selectedChecklistIndex: -1,
+            UserDefaultsKeys.firstRun: true
+        ]
         UserDefaults.standard.register(defaults: dictionary)
     }
     
@@ -105,6 +130,9 @@ class ChecklistsManager {
     // MARK: - UserDefaults Constants
     
     private enum UserDefaultsKeys {
+        /// A key for last selected checklist's index.
         static let selectedChecklistIndex = "ChecklistIndex"
+        /// A key to describe a first time app's run after a fresh install.
+        static let firstRun = "FirstRun"
     }
 }
