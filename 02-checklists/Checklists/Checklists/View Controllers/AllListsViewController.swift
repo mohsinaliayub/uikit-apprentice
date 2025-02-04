@@ -57,8 +57,8 @@ class AllListsViewController: UIViewController {
     /// comes back to the app.
     private func showLastOpenedChecklist() {
         let index = checklistManager.indexOfSelectedChecklist
-        // If index is not -1, then a Checklist was opened.
-        if index != -1 {
+        // If index is in the range of checklist indices, then a Checklist was opened.
+        if checklists.indices.contains(index) {
             let checklist = checklists[index]
             performSegue(withIdentifier: showChecklistSegueIdentifier, sender: checklist)
         }
