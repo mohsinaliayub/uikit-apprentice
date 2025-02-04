@@ -56,7 +56,7 @@ class AllListsViewController: UIViewController {
     /// If the app was terminated when the user was on a Checklist, reopen that Checklist when user
     /// comes back to the app.
     private func showLastOpenedChecklist() {
-        let index = UserDefaults.standard.integer(forKey: "ChecklistIndex")
+        let index = checklistManager.indexOfSelectedChecklist
         // If index is not -1, then a Checklist was opened.
         if index != -1 {
             let checklist = checklists[index]
@@ -133,7 +133,7 @@ extension AllListsViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         
         // Save the currently selected Checklist.
-        UserDefaults.standard.set(indexPath.row, forKey: "ChecklistIndex")
+        checklistManager.indexOfSelectedChecklist = indexPath.row
     }
     
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
@@ -150,7 +150,7 @@ extension AllListsViewController: UINavigationControllerDelegate {
         // Was the back button tapped? If we move back to AllListsViewController,
         // remove the currently selected Checklist.
         if viewController === self {
-            UserDefaults.standard.set(-1, forKey: "ChecklistIndex")
+            checklistManager.indexOfSelectedChecklist = -1
         }
     }
 }

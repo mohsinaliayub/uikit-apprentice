@@ -18,6 +18,8 @@ class ChecklistsManager {
         checklists = []
         // Load checklists.
         loadChecklists()
+        // Register default values.
+        registerDefaults()
     }
     
     // MARK: - Checklist Helpers
@@ -34,6 +36,18 @@ class ChecklistsManager {
     /// - Parameter item: The to-do list to add.
     func add(_ checklist: Checklist) {
         checklists.append(checklist)
+    }
+    
+    // MARK: - UserDefaults Helpers
+    
+    private func registerDefaults() {
+        let dictionary = [UserDefaultsKeys.selectedChecklistIndex: -1]
+        UserDefaults.standard.register(defaults: dictionary)
+    }
+    
+    var indexOfSelectedChecklist: Int {
+        get { UserDefaults.standard.integer(forKey: UserDefaultsKeys.selectedChecklistIndex) }
+        set { UserDefaults.standard.set(newValue, forKey: UserDefaultsKeys.selectedChecklistIndex)}
     }
     
     // MARK: - Data Persistence
@@ -86,5 +100,11 @@ class ChecklistsManager {
                 print("Error decoding item array: \(error.localizedDescription)")
             }
         }
+    }
+    
+    // MARK: - UserDefaults Constants
+    
+    private enum UserDefaultsKeys {
+        static let selectedChecklistIndex = "ChecklistIndex"
     }
 }
