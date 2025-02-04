@@ -19,7 +19,7 @@ final class Checklist {
     /// The to-do items.
     private(set) var items: [ChecklistItem]
     /// The number of todo items the user has not completed.
-    var uncheckedItems: Int {
+    var uncheckedItemsCount: Int {
         items.filter({ !$0.checked }).count
     }
     

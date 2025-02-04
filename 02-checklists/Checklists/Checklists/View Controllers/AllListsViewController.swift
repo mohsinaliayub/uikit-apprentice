@@ -80,9 +80,23 @@ class AllListsViewController: UIViewController {
     private func configureText(for cell: UITableViewCell, with checklist: Checklist) {
         var cellConfiguration = UIListContentConfiguration.cell()
         cellConfiguration.text = checklist.name
-        cellConfiguration.secondaryText = "\(checklist.uncheckedItems) Remaining"
+        cellConfiguration.secondaryText = itemsRemainingCount()
         
         cell.contentConfiguration = cellConfiguration
+        
+        func itemsRemainingCount() -> String {
+            let uncheckedItemsCount = checklist.uncheckedItemsCount
+            
+            var itemCountText: String
+            // If there are no items in checklist.
+            if checklist.items.isEmpty {
+                itemCountText = "(No Items)"
+            } else {
+                itemCountText = uncheckedItemsCount == 0 ? "All Done" : "\(uncheckedItemsCount) Remaining"
+            }
+            
+            return itemCountText
+        }
     }
     
     // MARK: - Navigation
