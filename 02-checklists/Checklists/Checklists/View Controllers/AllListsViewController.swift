@@ -41,6 +41,29 @@ class AllListsViewController: UIViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // Register our delegate.
+        navigationController?.delegate = self
+        
+        // Reopen any Checklist if app was terminated when in background.
+        showLastOpenedChecklist()
+    }
+    
+    /// Navigates to last opened Checklist, if any.
+    ///
+    /// If the app was terminated when the user was on a Checklist, reopen that Checklist when user
+    /// comes back to the app.
+    private func showLastOpenedChecklist() {
+        let index = UserDefaults.standard.integer(forKey: "ChecklistIndex")
+        // If index is not -1, then a Checklist was opened.
+        if index != -1 {
+            let checklist = checklists[index]
+            performSegue(withIdentifier: showChecklistSegueIdentifier, sender: checklist)
+        }
+    }
+    
     // MARK: - Data Display Helpers
     
     /// Displays the name of the `checklist` in the cell.
@@ -108,12 +131,27 @@ extension AllListsViewController: UITableViewDelegate {
         
         performSegue(withIdentifier: showChecklistSegueIdentifier, sender: checklist)
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        // Save the currently selected Checklist.
+        UserDefaults.standard.set(indexPath.row, forKey: "ChecklistIndex")
     }
     
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         // Go to ListDetailViewController to edit a checklist
         let checklist = checklists[indexPath.row]
         performSegue(withIdentifier: editChecklistSegueIdentifier, sender: checklist)
+    }
+}
+
+// MARK: - Navigation Controller Delegate
+
+extension AllListsViewController: UINavigationControllerDelegate {
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        // Was the back button tapped? If we move back to AllListsViewController,
+        // remove the currently selected Checklist.
+        if viewController === self {
+            UserDefaults.standard.set(-1, forKey: "ChecklistIndex")
+        }
     }
 }
 
