@@ -74,6 +74,7 @@ class AllListsViewController: UIViewController {
     private func configureText(for cell: UITableViewCell, with checklist: Checklist) {
         var cellConfiguration = UIListContentConfiguration.cell()
         cellConfiguration.text = checklist.name
+        cellConfiguration.secondaryText = "\(checklist.uncheckedItems) Remaining"
         
         cell.contentConfiguration = cellConfiguration
     }

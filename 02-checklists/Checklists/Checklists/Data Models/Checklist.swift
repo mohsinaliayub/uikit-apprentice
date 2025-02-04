@@ -18,6 +18,10 @@ final class Checklist {
     var name: String
     /// The to-do items.
     private(set) var items: [ChecklistItem]
+    /// The number of todo items the user has not completed.
+    var uncheckedItems: Int {
+        items.filter({ !$0.checked }).count
+    }
     
     init(name: String) {
         self.id = UUID()
