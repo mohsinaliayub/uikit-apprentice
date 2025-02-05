@@ -17,7 +17,9 @@ final class Checklist {
     /// The name to identify a to-do list. Specifying a unique name will easily identify the to-do list.
     var name: String
     /// Icon name from app's asset catalog.
-    var iconName: String = "Appointments"
+    ///
+    /// The default icon name is "No Icon".
+    var iconName = "No Icon"
     /// The to-do items.
     private(set) var items: [ChecklistItem]
     /// The number of todo items the user has not completed.
