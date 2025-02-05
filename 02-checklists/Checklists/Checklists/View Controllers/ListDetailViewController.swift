@@ -89,7 +89,10 @@ class ListDetailViewController: UITableViewController {
     // MARK: - Table View Delegate
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        return nil
+        // We need to navigate to IconPickerViewController that is in the 2nd section
+        // of table view, so we need to return its index so we can navigate to that
+        // view controller.
+        return indexPath.section == 1 ? indexPath : nil
     }
 }
 

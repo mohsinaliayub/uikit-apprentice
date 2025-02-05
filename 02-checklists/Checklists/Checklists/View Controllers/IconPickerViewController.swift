@@ -37,12 +37,18 @@ class IconPickerViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         
+        displayIconAndName(in: cell, for: indexPath)
+        
+        return cell
+    }
+    
+    /// Displays an icon and name for a table view cell.
+    private func displayIconAndName(in cell: UITableViewCell, for indexPath: IndexPath) {
         let iconName = icons[indexPath.row]
         
         var contentConfiguration = UIListContentConfiguration.cell()
         contentConfiguration.text = iconName
         contentConfiguration.image = UIImage(named: iconName)
-        
-        return cell
+        cell.contentConfiguration = contentConfiguration
     }
 }
