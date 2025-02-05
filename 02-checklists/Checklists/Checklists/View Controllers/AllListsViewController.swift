@@ -81,6 +81,7 @@ class AllListsViewController: UIViewController {
         var cellConfiguration = UIListContentConfiguration.cell()
         cellConfiguration.text = checklist.name
         cellConfiguration.secondaryText = itemsRemainingCount()
+        cellConfiguration.image = UIImage(named: checklist.iconName)
         
         cell.contentConfiguration = cellConfiguration
         
