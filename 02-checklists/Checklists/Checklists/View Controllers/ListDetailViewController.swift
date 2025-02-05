@@ -41,9 +41,18 @@ class ListDetailViewController: UITableViewController {
     @IBOutlet weak var iconImageView: UIImageView!
     
     // MARK: - Properties
+    private let pickIconSegueId = "PickIcon"
     weak var delegate: ListDetailViewControllerDelegate?
     /// The to-do list to edit. It is `nil` when creating a new to-do list.
     var checklistToEdit: Checklist?
+    /// An icon name for image included in the assets catalog.
+    ///
+    /// Setting an icon name updates the ``iconImageView``.
+    private var iconName = "Folder" {
+        didSet {
+            iconImageView.image = UIImage(named: iconName)
+        }
+    }
     
     // MARK: - View Controller Lifecycle
     
@@ -57,6 +66,7 @@ class ListDetailViewController: UITableViewController {
         if let checklistToEdit {
             self.title = "Edit Checklist"
             textField.text = checklistToEdit.name
+            iconName = checklistToEdit.iconName
             doneBarButton.isEnabled = true
         }
     }
@@ -78,9 +88,11 @@ class ListDetailViewController: UITableViewController {
         // Call appropriate delegate method to notify of the procedure.
         if let checklist = checklistToEdit {
             checklist.name = textField.text!
+            checklist.iconName = iconName
             delegate?.listDetailViewController(self, didFinishEditing: checklist)
         } else {
             let checklist = Checklist(name: textField.text!)
+            checklist.iconName = iconName
             delegate?.listDetailViewController(self, didFinishAdding: checklist)
         }
     }
@@ -93,6 +105,26 @@ class ListDetailViewController: UITableViewController {
         // of table view, so we need to return its index so we can navigate to that
         // view controller.
         return indexPath.section == 1 ? indexPath : nil
+    }
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == pickIconSegueId {
+            let controller = segue.destination as! IconPickerViewController
+            controller.delegate = self
+        }
+    }
+}
+
+// MARK: - Icon Picker Delegate
+
+extension ListDetailViewController: IconPickerViewControllerDelegate {
+    func iconPicker(_ controller: IconPickerViewController, didPick iconName: String) {
+        // Save the iconName
+        self.iconName = iconName
+        // Navigate back to this view controller.
+        navigationController?.popViewController(animated: true)
     }
 }
 
