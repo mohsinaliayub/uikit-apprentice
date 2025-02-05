@@ -19,7 +19,7 @@ final class Checklist {
     /// Icon name from app's asset catalog.
     ///
     /// The default icon name is "No Icon".
-    var iconName = "No Icon"
+    var iconName: String
     /// The to-do items.
     private(set) var items: [ChecklistItem]
     /// The number of todo items the user has not completed.
@@ -27,9 +27,10 @@ final class Checklist {
         items.filter({ !$0.checked }).count
     }
     
-    init(name: String) {
+    init(name: String, iconName: String = "No Icon") {
         self.id = UUID()
         self.name = name
+        self.iconName = iconName
         self.items = []
     }
     
