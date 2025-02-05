@@ -52,3 +52,9 @@ extension Checklist: Equatable {
 }
 
 extension Checklist: Codable { }
+
+extension Checklist: Comparable {
+    static func < (lhs: Checklist, rhs: Checklist) -> Bool {
+        lhs.name.localizedStandardCompare(rhs.name) == .orderedAscending
+    }
+}

@@ -197,28 +197,22 @@ extension AllListsViewController: ListDetailViewControllerDelegate {
     /// Adds a to-do list to the `checklists` array and updates the table view.
     /// - Parameter checklist: The new to-do list.
     private func addChecklist(_ checklist: Checklist) {
-        // Find the index for the new to-do list.
-        let newRowIndex = checklists.count
-        
-        // Add to-do list to `list` array.
+        // Add to-do list to `checklistManager` array.
         checklistManager.add(checklist)
+        // Sort the checklists
+        checklistManager.sortChecklists()
         
         // Let the table view know that there are new rows to be added.
-        let indexPath = IndexPath(row: newRowIndex, section: 0)
-        tableView.insertRows(at: [indexPath], with: .automatic)
+        tableView.reloadData()
     }
     
     /// Updates an existing to-do list in the `checklists` array and updates the table view.
     /// - Parameter item: The modified to-do list.
     private func updateChecklist(_ checklist: Checklist) {
-        // Find the index for the checklist in checklists array.
-        if let index = checklists.firstIndex(of: checklist) {
-            // Create an index path.
-            let indexPath = IndexPath(row: index, section: 0)
-            // Find the cell for edited item, and update the text.
-            if let cell = tableView.cellForRow(at: indexPath) {
-                configureText(for: cell, with: checklist)
-            }
-        }
+        // Update the checklists by sorting them.
+        checklistManager.sortChecklists()
+        
+        // Let the table view know that there are new rows to be added.
+        tableView.reloadData()
     }
 }

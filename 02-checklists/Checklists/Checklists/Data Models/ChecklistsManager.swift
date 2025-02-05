@@ -59,6 +59,11 @@ class ChecklistsManager {
         }
     }
     
+    /// Sorts the `checklists` alphabetically.
+    func sortChecklists() {
+        checklists.sort()
+    }
+    
     // MARK: - UserDefaults Helpers
     
     /// Registers a default set of values for `selected checklist` and app's `first run` after a fresh install.
@@ -121,6 +126,7 @@ class ChecklistsManager {
             // Decode data and save it in our items array. Handle error if it fails.
             do {
                 checklists = try decoder.decode([Checklist].self, from: data)
+                sortChecklists() // Sort the checklists.
             } catch {
                 print("Error decoding item array: \(error.localizedDescription)")
             }
