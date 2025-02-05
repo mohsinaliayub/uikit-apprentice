@@ -48,7 +48,7 @@ class ListDetailViewController: UITableViewController {
     /// An icon name for image included in the assets catalog.
     ///
     /// Setting an icon name updates the ``iconImageView``.
-    private var iconName = "Folder" {
+    private var iconName = "No Icon" {
         didSet {
             iconImageView.image = UIImage(named: iconName)
         }
@@ -68,6 +68,9 @@ class ListDetailViewController: UITableViewController {
             textField.text = checklistToEdit.name
             iconName = checklistToEdit.iconName
             doneBarButton.isEnabled = true
+        } else {
+            // Update the icon for a new checklist. Each new Checklist has a default Folder icon.
+            iconName = "Folder"
         }
     }
     
