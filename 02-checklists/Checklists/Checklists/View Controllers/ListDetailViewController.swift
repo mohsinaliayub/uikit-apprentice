@@ -38,6 +38,7 @@ class ListDetailViewController: UITableViewController {
     // MARK: - Outlets
     @IBOutlet private weak var textField: UITextField!
     @IBOutlet private weak var doneBarButton: UIBarButtonItem!
+    @IBOutlet weak var iconImageView: UIImageView!
     
     // MARK: - Properties
     weak var delegate: ListDetailViewControllerDelegate?

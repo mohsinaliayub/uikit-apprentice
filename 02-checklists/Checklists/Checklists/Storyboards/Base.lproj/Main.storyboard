@@ -184,6 +184,9 @@ AwMD4oiaA
                                                 <constraint firstItem="64O-MY-CyO" firstAttribute="leading" secondItem="iSJ-kY-Gcb" secondAttribute="trailing" constant="8" id="s9H-HD-6IC"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="9n7-ZK-AVg" kind="show" identifier="PickIcon" id="Xvz-rO-v2W"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -207,6 +210,7 @@ AwMD4oiaA
                     </navigationItem>
                     <connections>
                         <outlet property="doneBarButton" destination="X7H-Rt-3tJ" id="TIc-Xc-Kmu"/>
+                        <outlet property="iconImageView" destination="64O-MY-CyO" id="Aan-Zq-Pul"/>
                         <outlet property="textField" destination="MdC-Az-tk0" id="6YU-V0-QGF"/>
                     </connections>
                 </tableViewController>
@@ -214,7 +218,7 @@ AwMD4oiaA
             </objects>
             <point key="canvasLocation" x="909.60000000000002" y="58.920539730134934"/>
         </scene>
-        <!--Icon Picker View Controller-->
+        <!--Choose Icon-->
         <scene sceneID="Zw9-6J-xaC">
             <objects>
                 <tableViewController id="9n7-ZK-AVg" customClass="IconPickerViewController" customModule="Checklists" customModuleProvider="target" sceneMemberID="viewController">
@@ -246,6 +250,7 @@ AwMD4oiaA
                             <outlet property="delegate" destination="9n7-ZK-AVg" id="sGY-uW-EPh"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Choose Icon" id="2c1-0U-H4m"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DS2-d6-WMe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
