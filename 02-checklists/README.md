@@ -35,4 +35,4 @@ The following extra concepts are used to make the app logic work:
 Above views and concepts are the entirety of this simple app.
 
 # Screenshots
-<!--<img src="Screenshots/Round1.png" width="500" height="240" alt="Round 1 of Bull's Eye Game">-->
+<img src="Screenshots/1.Checklists.png" width="500" height="240" alt="All Checklists"> <img src="Screenshots/2.ChecklistDetails.png" width="500" height="240" alt="Edit Checklist"> <img src="Screenshots/3.IconPicker.png" width="500" height="240" alt="Icon Picker"> <img src="Screenshots/4.ChecklistItems.png" width="500" height="240" alt="Checklist Items"> <img src="Screenshots/5.ItemDetails.png" width="500" height="240" alt="Edit Checklist Item">
