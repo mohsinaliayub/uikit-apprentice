@@ -18,6 +18,10 @@ class ChecklistItem: Codable {
     var text: String
     /// The state of the to-do item, whether it is completed or not.
     var checked: Bool
+    /// State to describe whether to schedule a local notification for this object, or not.
+    var shouldRemind: Bool
+    /// A date (with time) on which to schedule the notification.
+    var dueDate: Date?
     
     /// Initializes a `ChecklistItem` object with both ``text`` and ``checked`` states.
     /// - Parameters:
@@ -27,6 +31,7 @@ class ChecklistItem: Codable {
         self.id = UUID().uuidString
         self.text = text
         self.checked = checked
+        self.shouldRemind = false
     }
     
     
