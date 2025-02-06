@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UserNotifications
 
 /// A simple to-do item to be performed by the user.
 ///
@@ -39,6 +40,42 @@ class ChecklistItem: Codable {
     /// - Parameter title: A unique description to identify a to-do item.
     convenience init(text: String) {
         self.init(text: text, checked: false)
+    }
+    
+    /// Schedule a local notification for todo item on due date.
+    func scheduleNotification() {
+        // Schedule it only if dueDate is in the future and shouldRemind is true.
+        guard let dueDate, shouldRemind && dueDate > Date() else { return }
+        
+        // Create notification content, calendar trigger, create a request.
+        let content = notificationContent()
+        let trigger = notificationTrigger(for: dueDate)
+        let request = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
+        
+        // Schedule the notification with notification center.
+        let center = UNUserNotificationCenter.current()
+        center.add(request)
+    }
+    
+    /// Creates a mutable notification content with title, body and a default notification sound.
+    private func notificationContent() -> UNMutableNotificationContent {
+        let content = UNMutableNotificationContent()
+        content.title = "Reminder:"
+        content.body = text
+        content.sound = .default
+        
+        return content
+    }
+    
+    /// Creates a calendar notification trigger on specified date.
+    ///
+    /// - Parameter dueDate: The date on which to schedule a notification.
+    private func notificationTrigger(for dueDate: Date) -> UNCalendarNotificationTrigger {
+        let calendar = Calendar(identifier: .gregorian)
+        let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: dueDate)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+        
+        return trigger
     }
 }
 
