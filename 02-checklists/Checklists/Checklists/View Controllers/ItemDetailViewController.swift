@@ -39,6 +39,8 @@ class ItemDetailViewController: UITableViewController {
     // MARK: - Outlets
     @IBOutlet private weak var textField: UITextField!
     @IBOutlet private weak var doneBarButton: UIBarButtonItem!
+    @IBOutlet private weak var shouldRemindSwitch: UISwitch!
+    @IBOutlet private weak var datePicker: UIDatePicker!
     
     // MARK: - Properties
     weak var delegate: ItemDetailViewControllerDelegate?
