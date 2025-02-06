@@ -27,6 +27,10 @@ final class Checklist {
         items.filter({ !$0.checked }).count
     }
     
+    /// Initializes a `Checklist` object with both `name` and `iconName`.
+    /// - Parameters:
+    ///   - name: A name to identify a to-do list.
+    ///   - iconName: The name of an image included in the app's asset catalog. The default is `No Icon`.
     init(name: String, iconName: String = "No Icon") {
         self.id = UUID()
         self.name = name

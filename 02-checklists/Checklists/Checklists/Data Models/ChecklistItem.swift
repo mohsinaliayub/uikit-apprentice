@@ -11,7 +11,9 @@ import Foundation
 ///
 /// You can and should specify a unique description for your to-do item to be easily identified among others.
 /// The to-do item can be set as complete/uncomplete.
-class ChecklistItem: NSObject, Codable {
+class ChecklistItem: Codable {
+    /// A unique identifier for to-do item.
+    private let id: String
     /// A description to identify a to-do item. Please specify a unique description to easily identify the to-do item.
     var text: String
     /// The state of the to-do item, whether it is completed or not.
@@ -22,6 +24,7 @@ class ChecklistItem: NSObject, Codable {
     ///   - text: A unique description to identify a to-do item.
     ///   - checked: The state of the to-do item: completed or not.
     init(text: String, checked: Bool) {
+        self.id = UUID().uuidString
         self.text = text
         self.checked = checked
     }
@@ -31,5 +34,11 @@ class ChecklistItem: NSObject, Codable {
     /// - Parameter title: A unique description to identify a to-do item.
     convenience init(text: String) {
         self.init(text: text, checked: false)
+    }
+}
+
+extension ChecklistItem: Equatable {
+    static func == (lhs: ChecklistItem, rhs: ChecklistItem) -> Bool {
+        lhs.id == rhs.id
     }
 }
