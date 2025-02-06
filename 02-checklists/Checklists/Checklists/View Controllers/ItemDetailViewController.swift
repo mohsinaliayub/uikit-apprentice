@@ -52,6 +52,8 @@ class ItemDetailViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let tenMinutesFromNow = Date().addingTimeInterval(600)
+        
         // If there's an item to edit
         //     - Update the title in navigation bar
         //     - Set the text of textField to item's text
@@ -59,7 +61,11 @@ class ItemDetailViewController: UITableViewController {
         if let itemToEdit {
             title = "Edit Item"
             textField.text = itemToEdit.text
+            shouldRemindSwitch.isOn = itemToEdit.shouldRemind
+            datePicker.date = itemToEdit.dueDate ?? tenMinutesFromNow
             doneBarButton.isEnabled = true
+        } else {
+            datePicker.date = tenMinutesFromNow
         }
     }
     
@@ -80,9 +86,13 @@ class ItemDetailViewController: UITableViewController {
         // Call appropriate delegate method to notify of the procedure.
         if let item = itemToEdit {
             item.text = textField.text!
+            item.shouldRemind = shouldRemindSwitch.isOn
+            item.dueDate = datePicker.date
             delegate?.itemDetailViewController(self, didFinishEditing: item)
         } else {
             let item = ChecklistItem(text: textField.text!)
+            item.shouldRemind = shouldRemindSwitch.isOn
+            item.dueDate = datePicker.date
             delegate?.itemDetailViewController(self, didFinishAdding: item)
         }
     }
