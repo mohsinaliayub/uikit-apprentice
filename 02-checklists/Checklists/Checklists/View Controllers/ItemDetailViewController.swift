@@ -101,6 +101,24 @@ class ItemDetailViewController: UITableViewController {
         }
     }
     
+    @IBAction private func shouldRemindToggled(_ switchControl: UISwitch) {
+        textField.resignFirstResponder()
+        
+        if switchControl.isOn {
+            requestAuthorizationForNotifications()
+        }
+    }
+    
+    /// Requests local notification authorization with alert and sound.
+    private func requestAuthorizationForNotifications() {
+        // request authorization for local notifications
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .sound]) { granted, error in
+            if !granted {
+                // TODO: Handle the authorization cancellation
+            }
+        }
+    }
     
     // MARK: - Table View Delegate
     
