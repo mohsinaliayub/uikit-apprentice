@@ -44,6 +44,9 @@ class ChecklistItem: Codable {
     
     /// Schedule a local notification for todo item on due date.
     func scheduleNotification() {
+        // Remove a pending notification, if there was one.
+        removePendingNotification()
+        
         // Schedule it only if dueDate is in the future and shouldRemind is true.
         guard let dueDate, shouldRemind && dueDate > Date() else { return }
         
@@ -76,6 +79,12 @@ class ChecklistItem: Codable {
         let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
         
         return trigger
+    }
+    
+    /// Removes a pending notification for this todo item, if any.
+    private func removePendingNotification() {
+        let center = UNUserNotificationCenter.current()
+        center.removePendingNotificationRequests(withIdentifiers: [id])
     }
 }
 
