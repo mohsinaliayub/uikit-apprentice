@@ -42,6 +42,11 @@ class ChecklistItem: Codable {
         self.init(text: text, checked: false)
     }
     
+    // Remove pending notification when object is removed from memory, if any.
+    deinit {
+        removePendingNotification()
+    }
+    
     /// Schedule a local notification for todo item on due date.
     func scheduleNotification() {
         // Remove a pending notification, if there was one.
