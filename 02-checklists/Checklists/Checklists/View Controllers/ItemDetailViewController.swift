@@ -67,6 +67,9 @@ class ItemDetailViewController: UITableViewController {
         } else {
             datePicker.date = tenMinutesFromNow
         }
+        
+        // enable/disable the date picker
+        datePicker.isEnabled = shouldRemindSwitch.isOn
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -107,6 +110,9 @@ class ItemDetailViewController: UITableViewController {
         if switchControl.isOn {
             requestAuthorizationForNotifications()
         }
+        
+        // disable the date picker if switch is off.
+        datePicker.isEnabled = switchControl.isOn
     }
     
     /// Requests local notification authorization with alert and sound.
