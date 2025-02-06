@@ -23,6 +23,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("Permission denied")
             }
         }
+        
+        // Create a notification with time trigger
+        let content = UNMutableNotificationContent()
+        content.title = "Hello"
+        content.body = "I am a local notification"
+        content.sound = .default
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
+        let request = UNNotificationRequest(identifier: "MyNotification", content: content, trigger: trigger)
+        center.add(request)
         return true
     }
 
