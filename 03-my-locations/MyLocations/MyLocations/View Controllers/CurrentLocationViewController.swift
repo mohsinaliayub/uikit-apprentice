@@ -6,8 +6,13 @@
 //
 
 import UIKit
+import CoreLocation
 
 class CurrentLocationViewController: UIViewController {
+    
+    // MARK: Properties
+    /// Access location updates through this manager.
+    private let locationManager = CLLocationManager()
     
     // MARK: Outlets
     @IBOutlet private weak var messageLabel: UILabel!
@@ -20,7 +25,29 @@ class CurrentLocationViewController: UIViewController {
     // MARK: Actions
     
     @IBAction private func getLocation() {
-        // TODO: fetch location coordinates
+        // Request user's permission to use device's location
+        // when the app is running.
+        let authorizationStatus = locationManager.authorizationStatus
+        if authorizationStatus == .notDetermined {
+            locationManager.requestWhenInUseAuthorization()
+            return
+        }
+        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.startUpdatingLocation()
     }
 }
 
+// MARK: - Location Manager Delegate
+
+extension CurrentLocationViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
+        print("didFailWithError \(error.localizedDescription)")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let newLocation = locations.last!
+        print("didUpdateLocations \(newLocation)")
+    }
+}
