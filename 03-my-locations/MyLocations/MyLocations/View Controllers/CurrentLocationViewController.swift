@@ -8,12 +8,19 @@
 import UIKit
 
 class CurrentLocationViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
+    
+    // MARK: Outlets
+    @IBOutlet private weak var messageLabel: UILabel!
+    @IBOutlet private weak var latitudeLabel: UILabel!
+    @IBOutlet private weak var longitudeLabel: UILabel!
+    @IBOutlet private weak var addressLabel: UILabel!
+    @IBOutlet private weak var tagButton: UIButton!
+    @IBOutlet private weak var getLocationButton: UIButton!
+    
+    // MARK: Actions
+    
+    @IBAction private func getLocation() {
+        // TODO: fetch location coordinates
     }
-
-
 }
 
