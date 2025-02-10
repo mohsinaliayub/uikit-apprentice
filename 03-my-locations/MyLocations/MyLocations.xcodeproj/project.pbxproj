@@ -14,7 +14,7 @@
 		B68C33F02D5AB06A00FB0CEA /* Exceptions for "MyLocations" folder in "MyLocations" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				Resources/Info.plist,
 			);
 			target = B68C33DD2D5AB06600FB0CEA /* MyLocations */;
 		};
@@ -147,7 +147,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 54L66DHDVH;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MyLocations/Info.plist;
+				INFOPLIST_FILE = MyLocations/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -179,7 +179,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 54L66DHDVH;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MyLocations/Info.plist;
+				INFOPLIST_FILE = MyLocations/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
