@@ -25,9 +25,16 @@ class CurrentLocationViewController: UIViewController {
     // MARK: Actions
     
     @IBAction private func getLocation() {
+        let authorizationStatus = locationManager.authorizationStatus
+        
+        // If the user denied location access or it is restricted, display an alert.
+        if authorizationStatus == .denied || authorizationStatus == .restricted {
+            showLocationServicesDeniedAlert()
+            return
+        }
+        
         // Request user's permission to use device's location
         // when the app is running.
-        let authorizationStatus = locationManager.authorizationStatus
         if authorizationStatus == .notDetermined {
             locationManager.requestWhenInUseAuthorization()
             return
@@ -36,6 +43,22 @@ class CurrentLocationViewController: UIViewController {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager.startUpdatingLocation()
+    }
+    
+    // MARK: Helper Methods
+    
+    /// Display an alert to clarify why location updates are not working.
+    private func showLocationServicesDeniedAlert() {
+        let alert = UIAlertController(
+            title: "Location Services Disabled",
+            message: "Please enable location services for this app in Settings.",
+            preferredStyle: .alert
+        )
+        
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(okAction)
+        
+        present(alert, animated: true)
     }
 }
 
