@@ -13,6 +13,8 @@ class CurrentLocationViewController: UIViewController {
     // MARK: Properties
     /// Access location updates through this manager.
     private let locationManager = CLLocationManager()
+    /// The latest location asked by the user accurate to the nearest ten meters.
+    private var location: CLLocation?
     
     // MARK: Outlets
     @IBOutlet private weak var messageLabel: UILabel!
@@ -21,6 +23,15 @@ class CurrentLocationViewController: UIViewController {
     @IBOutlet private weak var addressLabel: UILabel!
     @IBOutlet private weak var tagButton: UIButton!
     @IBOutlet private weak var getLocationButton: UIButton!
+    
+    
+    // MARK: View Lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        updateLabels()
+    }
+    
     
     // MARK: Actions
     
@@ -60,6 +71,22 @@ class CurrentLocationViewController: UIViewController {
         
         present(alert, animated: true)
     }
+    
+    /// Updates the labels with latest location information, plus updates any messages relevant to the user.
+    private func updateLabels() {
+        if let location {
+            latitudeLabel.text = String(format: "%.8f", location.coordinate.latitude)
+            longitudeLabel.text = String(format: "%.8f", location.coordinate.longitude)
+            tagButton.isHidden = false
+            messageLabel.text = ""
+        } else {
+            latitudeLabel.text = ""
+            longitudeLabel.text = ""
+            addressLabel.text = ""
+            tagButton.isHidden = true
+            messageLabel.text = "Tap 'Get My Location' to Start"
+        }
+    }
 }
 
 // MARK: - Location Manager Delegate
@@ -70,7 +97,9 @@ extension CurrentLocationViewController: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let newLocation = locations.last!
-        print("didUpdateLocations \(newLocation)")
+        let newLocation = locations.last
+        // Save the latest location and update the labels.
+        location = newLocation
+        updateLabels()
     }
 }
