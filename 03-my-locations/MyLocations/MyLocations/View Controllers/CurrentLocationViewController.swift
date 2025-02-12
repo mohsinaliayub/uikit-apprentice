@@ -88,8 +88,31 @@ class CurrentLocationViewController: UIViewController {
             longitudeLabel.text = ""
             addressLabel.text = ""
             tagButton.isHidden = true
-            messageLabel.text = "Tap 'Get My Location' to Start"
+            messageLabel.text = statusMessage()
         }
+    }
+    
+    /// Computes a status for the location service updates.
+    ///
+    /// - Returns: A status message indicating the progress of location updates.
+    private func statusMessage() -> String {
+        let statusMessage: String
+        
+        if let error = lastLocationError as NSError? {
+            if error.domain == kCLErrorDomain && error.code == CLError.denied.rawValue {
+                statusMessage = "Location Services Disabled"
+            } else {
+                statusMessage = "Error Getting Location"
+            }
+        } else if !CLLocationManager.locationServicesEnabled() {
+            statusMessage = "Location Services Disabled"
+        } else if updatingLocation {
+            statusMessage = "Searching..."
+        } else {
+            statusMessage = "Tap 'Get My Location' to Start"
+        }
+        
+        return statusMessage
     }
     
     /// Stops fetching current location's updates.
