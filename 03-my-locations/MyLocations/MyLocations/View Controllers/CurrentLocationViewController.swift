@@ -15,6 +15,10 @@ class CurrentLocationViewController: UIViewController {
     private let locationManager = CLLocationManager()
     /// The latest location asked by the user accurate to the nearest ten meters.
     private var location: CLLocation?
+    /// A flag indicating whether the app is busy getting user's location.
+    private var updatingLocation = false
+    /// The most recent error encountered when fetching user's location.
+    private var lastLocationError: Error?
     
     // MARK: Outlets
     @IBOutlet private weak var messageLabel: UILabel!
@@ -87,6 +91,18 @@ class CurrentLocationViewController: UIViewController {
             messageLabel.text = "Tap 'Get My Location' to Start"
         }
     }
+    
+    /// Stops fetching current location's updates.
+    private func stopLocationManager() {
+        // Only stop if we are fetching any location updates.
+        guard updatingLocation else { return }
+        
+        // Stop location manager. No need for delegate method calls.
+        // Change the flag `updatingLocation` to false.
+        locationManager.stopUpdatingLocation()
+        locationManager.delegate = nil
+        updatingLocation = false
+    }
 }
 
 // MARK: - Location Manager Delegate
@@ -94,6 +110,16 @@ class CurrentLocationViewController: UIViewController {
 extension CurrentLocationViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
         print("didFailWithError \(error.localizedDescription)")
+        
+        // If the location unknown error is thrown, keep trying for more location updates.
+        if (error as NSError).code == CLError.locationUnknown.rawValue {
+            return
+        }
+        
+        // If there's any other error than 'location unknown', save the error and stop location updates.
+        lastLocationError = error
+        stopLocationManager()
+        updateLabels()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
