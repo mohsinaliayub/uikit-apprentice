@@ -55,9 +55,8 @@ class CurrentLocationViewController: UIViewController {
             return
         }
         
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        locationManager.startUpdatingLocation()
+        startLocationManager()
+        updateLabels()
     }
     
     // MARK: Helper Methods
@@ -115,6 +114,22 @@ class CurrentLocationViewController: UIViewController {
         return statusMessage
     }
     
+    // MARK: Location Manager (Start & Stop)
+    
+    /// Sets up location manager to fetch current location.
+    ///
+    /// It sets up a delegate, desired accuracy and starts updating the location.
+    private func startLocationManager() {
+        guard CLLocationManager.locationServicesEnabled() else {
+            return
+        }
+        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.startUpdatingLocation()
+        updatingLocation = true
+    }
+    
     /// Stops fetching current location's updates.
     private func stopLocationManager() {
         // Only stop if we are fetching any location updates.
@@ -147,8 +162,9 @@ extension CurrentLocationViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let newLocation = locations.last
-        // Save the latest location and update the labels.
+        // Save the latest location, clear old errors and update the labels.
         location = newLocation
+        lastLocationError = nil
         updateLabels()
     }
 }
