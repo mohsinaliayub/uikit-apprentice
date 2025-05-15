@@ -12,3 +12,5 @@ I applied the basic principles of iOS app development:
 - User Defaults
 - Core Data
 - Swift Basics to Intermediate
+- Core Location
+- Persisting Data with Property Lists
